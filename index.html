@@ -92,8 +92,8 @@
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
-      // use the reachable MP3 you confirmed on Pages
-      audioFilename: 'audio/She_Hit_The_Track.mp3',
+      // Google Drive direct-download URL for the file you provided
+      audioFilename: 'https://docs.google.com/uc?export=download&id=133ILEHjsrZtAB7K6mIOigoS6T5Mhd1g9',
       postReleaseBehavior: 'swap-button' // swap-button or redirect
     };
 
@@ -120,44 +120,37 @@
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
     }
 
-    // Audio source wiring: handle both .m4a and .mp3 inputs robustly
+    // Audio source wiring: handle repo-relative paths, full URLs, and Google Drive direct-download links
     (function setAudioSources() {
       const m4aEl = document.getElementById('audio-src-m4a');
       const mp3El = document.getElementById('audio-src-mp3');
       const audioEl = document.getElementById('preview-audio');
 
-      // If audioFilename is a full URL, use it directly; otherwise encode path segments
-      let src;
-      try {
-        const isFullUrl = /^(https?:)?\/\//i.test(CONFIG.audioFilename);
-        if (isFullUrl) {
-          src = CONFIG.audioFilename;
-        } else {
-          const parts = CONFIG.audioFilename.split('/').map(encodeURIComponent);
+      let src = CONFIG.audioFilename || '';
+
+      // If it's not an absolute URL, encode path segments for repo-relative paths
+      if (!/^(https?:)?\/\//i.test(src)) {
+        try {
+          const parts = src.split('/').map(encodeURIComponent);
           src = parts.join('/');
-          // prepend relative path root if GitHub Pages requires it; keep relative for Pages
-        }
-      } catch (err) {
-        src = CONFIG.audioFilename;
+        } catch (e) {}
       }
 
-      // assign appropriate sources
+      // For Google Drive direct download URLs the extension may not be present; assign to mp3 source for broad compatibility
+      const hasMp3Ext = /\.mp3$/i.test(src);
+      const hasM4aExt = /\.m4a$/i.test(src);
+
       if (m4aEl) {
-        if (/\.m4a$/i.test(src)) {
-          m4aEl.src = src;
-        } else {
-          m4aEl.removeAttribute('src');
-        }
+        if (hasM4aExt) { m4aEl.src = src; } else { m4aEl.removeAttribute('src'); }
       }
 
       if (mp3El) {
-        if (/\.mp3$/i.test(src)) {
+        if (hasMp3Ext) {
           mp3El.src = src;
-        } else if (/\.m4a$/i.test(src)) {
+        } else if (hasM4aExt) {
           mp3El.src = src.replace(/\.m4a$/i, '.mp3');
         } else {
-          // fallback: try same path with .mp3 extension
-          mp3El.src = src.replace(/\.\w+$/, '.mp3');
+          mp3El.src = src;
         }
       }
 
