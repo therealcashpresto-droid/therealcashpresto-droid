@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Romantic Opportunist — Countdown</title>
   <meta name="description" content="Countdown to 'Romantic Opportunist' — pre-save, preview, and album description." />
+  <!-- Google Font: Playfair Display for description, Inter fallback -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#071018;--card:rgba(255,255,255,0.03);--accent:#1db954;--muted:#9aa0a6}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;background:linear-gradient(180deg,#04121a 0%,#071018 100%)}
@@ -22,10 +24,23 @@
     .btn{background:var(--accent);color:#001;border-radius:10px;padding:12px 16px;text-decoration:none;font-weight:700}
     .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 14px;border-radius:10px;color:var(--muted);text-decoration:none}
     .teaser{margin-top:14px;color:var(--muted);font-size:14px;line-height:1.4}
-    .description{margin-top:16px;color:#fff;background:rgba(0,0,0,0.04);padding:14px;border-radius:8px;white-space:pre-wrap}
+    /* DESCRIPTION: use Playfair Display for an elegant, appealing serif look */
+    .description{margin-top:16px;color:#fff;background:rgba(0,0,0,0.04);padding:18px;border-radius:8px;white-space:pre-wrap;
+      font-family:'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size:16px;
+      line-height:1.65;
+      letter-spacing:0.2px;
+      color:#f7f7f7;
+    }
     footer{margin-top:18px;color:var(--muted);font-size:13px}
     audio{margin-top:12px;width:100%}
-    @media (max-width:520px){header{flex-direction:row;align-items:center} .art{width:72px;height:72px} .unit{min-width:60px;padding:10px} .unit .n{font-size:16px}}
+    @media (max-width:520px){
+      header{flex-direction:row;align-items:center}
+      .art{width:72px;height:72px}
+      .unit{min-width:60px;padding:10px}
+      .unit .n{font-size:16px}
+      .description{font-size:15px;padding:14px}
+    }
   </style>
 </head>
 <body>
@@ -35,7 +50,7 @@
         <div class="art" id="artwork" style="background-image:url('https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp')" aria-hidden="true"></div>
         <div>
           <h1 id="title">Romantic Opportunist</h1>
-          <div class="meta">Release (America/New_York): <strong id="release-local">2026-01-16T12:00:00Z</strong></div>
+          <div class="meta">Release (America/New_York): <strong id="release-local">2026-01-16T07:00:00</strong></div>
           <div class="meta">Release (UTC): <strong id="release-utc">2026-01-16T12:00:00Z</strong></div>
         </div>
       </header>
@@ -52,14 +67,14 @@
       </div>
 
       <div class="description" id="album-description">
-        Romantic Opportunist is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. On "She Hit The Track" you get a hook that sticks; on "Let Me Take This Pain Away" I offer a heartfelt message to the girl who carried her own sorrow while making sure I’d be okay. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
+        Romantic Opportunist is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. On "She Hit The Track" you get a hook that sticks; on "Let Me Take This Pain Away" I offer a heartfelt message to a girl who carried her own sorrow while making sure others would be okay. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
       </div>
 
       <div class="teaser" id="teaser">
         Preview and updates will appear here. Check back on release day to stream Romantic Opportunist.
       </div>
 
-      <!-- Audio player: referenced via JS to safely encode spaces in filenames -->
+      <!-- Audio player -->
       <div id="audio-wrap">
         <audio id="preview-audio" controls preload="metadata">
           <source id="audio-src-m4a" type="audio/mp4">
@@ -76,39 +91,22 @@
     // CONFIG (your values)
     const CONFIG = {
       title: 'Romantic Opportunist',
-      releaseIso: '2026-01-16T12:00:00Z', // UTC release time
+      // UTC equivalent for 2026-01-16 07:00:00 America/New_York (EST is UTC-5 on this date)
+      releaseIso: '2026-01-16T12:00:00Z',
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
-      // Filename you uploaded (contains spaces). If you rename the file, update this value.
+      // update if you rename the uploaded file
       audioFilename: 'audio/She Hit The Track.m4a',
       postReleaseBehavior: 'swap-button' // swap-button or redirect
     };
 
-    // Basic DOM wiring
+    // DOM wiring
     document.getElementById('title').textContent = CONFIG.title;
     document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
     document.getElementById('presave-btn').href = CONFIG.presaveUrl;
 
-    // Album description already in HTML; no change needed here
-
-    // Audio source wiring: encode spaces so browser requests the correct raw GitHub URL
-    (function setAudioSources() {
-      const m4aEl = document.getElementById('audio-src-m4a');
-      const mp3El = document.getElementById('audio-src-mp3');
-      // Encode only path segments, leave slashes intact
-      const parts = CONFIG.audioFilename.split('/').map(encodeURIComponent);
-      const encodedPath = parts.join('/');
-      // Set M4A source
-      if (m4aEl) m4aEl.src = encodedPath;
-      // Set MP3 fallback (same base name with .mp3)
-      if (mp3El) mp3El.src = encodedPath.replace(/\.m4a$/i, '.mp3');
-      // Force reload so player picks up new sources
-      const audioEl = document.getElementById('preview-audio');
-      audioEl.load();
-    })();
-
-    // Show release in local timezone (America/New_York) and UTC
+    // Show release in UTC and America/New_York
     const release = new Date(CONFIG.releaseIso);
     document.getElementById('release-utc').textContent = CONFIG.releaseIso;
     try {
@@ -118,7 +116,19 @@
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
     }
 
-    // Countdown logic (uses UTC release time)
+    // Audio source wiring: encode spaces so browser requests the correct path
+    (function setAudioSources() {
+      const m4aEl = document.getElementById('audio-src-m4a');
+      const mp3El = document.getElementById('audio-src-mp3');
+      const parts = CONFIG.audioFilename.split('/').map(encodeURIComponent);
+      const encodedPath = parts.join('/');
+      if (m4aEl) m4aEl.src = encodedPath;
+      if (mp3El) mp3El.src = encodedPath.replace(/\.m4a$/i, '.mp3');
+      const audioEl = document.getElementById('preview-audio');
+      audioEl.load();
+    })();
+
+    // Countdown logic (uses UTC release time so math is correct for all visitors)
     const releaseTime = release.getTime();
     const els = {
       days: document.getElementById('days'),
@@ -171,6 +181,13 @@
 
     update();
     setInterval(update, 1000);
+
+    // Debug helpers (uncomment to log in browser console)
+    // console.log('release (UTC ISO):', CONFIG.releaseIso);
+    // console.log('browser local time now:', new Date().toString());
+    // console.log('browser timeZone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+    // console.log('release in browser local:', new Date(CONFIG.releaseIso).toString());
+    // console.log('release in America/New_York:', new Date(CONFIG.releaseIso).toLocaleString('en-US', {timeZone:'America/New_York'}));
   </script>
 </body>
 </html>
