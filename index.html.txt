@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Romantic Opportunist — Countdown</title>
+  <meta name="description" content="Countdown to 'Romantic Opportunist' — pre-save, preview, and merch." />
+  <style>
+    :root{--bg:#071018;--card:rgba(255,255,255,0.03);--accent:#1db954;--muted:#9aa0a6}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;background:linear-gradient(180deg,#04121a 0%,#071018 100%)}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:100%;max-width:820px;background:var(--card);padding:28px;border-radius:12px;box-shadow:0 12px 40px rgba(2,6,23,0.6)}
+    header{display:flex;gap:18px;align-items:center}
+    .art{width:88px;height:88px;border-radius:8px;flex:0 0 88px;background-size:cover;background-position:center}
+    h1{margin:0;font-size:22px}
+    .meta{color:var(--muted);font-size:14px;margin-top:6px}
+    .count{display:flex;gap:10px;margin-top:18px;font-weight:700}
+    .unit{background:rgba(255,255,255,0.04);padding:14px;border-radius:8px;min-width:74px;text-align:center}
+    .unit .n{font-size:20px;letter-spacing:0.6px}
+    .unit .label{font-size:12px;color:var(--muted);margin-top:6px}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#001;border-radius:10px;padding:12px 16px;text-decoration:none;font-weight:700}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 14px;border-radius:10px;color:var(--muted);text-decoration:none}
+    .teaser{margin-top:14px;color:var(--muted);font-size:14px}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    @media (max-width:520px){header{flex-direction:row;align-items:center} .art{width:72px;height:72px} .unit{min-width:60px;padding:10px} .unit .n{font-size:16px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Release countdown">
+      <header>
+        <div class="art" id="artwork" style="background-image:url('https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp')" aria-hidden="true"></div>
+        <div>
+          <h1 id="title">Romantic Opportunist</h1>
+          <div class="meta">Release date (UTC): <strong id="release-date">2026-01-16T12:00:00Z</strong></div>
+        </div>
+      </header>
+
+      <div class="count" id="countdown" aria-live="polite" aria-atomic="true" role="status">
+        <div class="unit"><div class="n" id="days">00</div><div class="label">Days</div></div>
+        <div class="unit"><div class="n" id="hours">00</div><div class="label">Hours</div></div>
+        <div class="unit"><div class="n" id="mins">00</div><div class="label">Minutes</div></div>
+        <div class="unit"><div class="n" id="secs">00</div><div class="label">Seconds</div></div>
+      </div>
+
+      <div class="cta">
+        <a id="presave-btn" class="btn" href="https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist" target="_blank" rel="noopener">Pre‑save on HyperFollow</a>
+        <a id="store-btn" class="secondary" href="#" target="_blank" rel="noopener" style="display:none">Buy Merch</a>
+      </div>
+
+      <div class="teaser" id="teaser">
+        Preview and updates will appear here. Check back on release day to stream Romantic Opportunist.
+      </div>
+
+      <footer id="status">Countdown to release</footer>
+    </div>
+  </div>
+
+  <script>
+    // Configuration (edited with your values)
+    const CONFIG = {
+      title: 'Romantic Opportunist',
+      // Corrected ISO timestamp (removed extra dash)
+      releaseIso: '2026-01-16T12:00:00Z',
+      presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
+      streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
+      artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
+      merchUrl: null, // none
+      postReleaseBehavior: 'swap-button' // swap-button or redirect
+    };
+
+    // Apply basic content
+    document.getElementById('title').textContent = CONFIG.title;
+    document.getElementById('release-date').textContent = CONFIG.releaseIso;
+    document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
+    const els = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      mins: document.getElementById('mins'),
+      secs: document.getElementById('secs'),
+      status: document.getElementById('status'),
+      presave: document.getElementById('presave-btn'),
+      store: document.getElementById('store-btn'),
+      teaser: document.getElementById('teaser')
+    };
+
+    // Setup CTAs
+    els.presave.href = CONFIG.presaveUrl;
+
+    if (CONFIG.merchUrl) {
+      els.store.href = CONFIG.merchUrl;
+      els.store.style.display = 'inline-block';
+    }
+
+    // Countdown logic
+    const releaseTime = new Date(CONFIG.releaseIso).getTime();
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function update(){
+      const now = Date.now();
+      const diff = releaseTime - now;
+
+      if (diff <= 0) {
+        els.days.textContent = '00';
+        els.hours.textContent = '00';
+        els.mins.textContent = '00';
+        els.secs.textContent = '00';
+        els.status.textContent = 'Released — stream now';
+
+        if (CONFIG.postReleaseBehavior === 'redirect') {
+          // Automatic redirect to streaming URL
+          window.location.href = CONFIG.streamingUrl;
+          return;
+        }
+
+        if (CONFIG.postReleaseBehavior === 'swap-button') {
+          // Swap the pre-save CTA into a Stream CTA
+          els.presave.textContent = 'Stream on Apple Music';
+          els.presave.href = CONFIG.streamingUrl;
+          els.presave.setAttribute('aria-label', 'Stream on Apple Music');
+          // Optionally surface streaming link in teaser
+          els.teaser.innerHTML = 'Released — <a href="' + CONFIG.streamingUrl + '" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">Listen on Apple Music</a>';
+        }
+        return;
+      }
+
+      const secs = Math.floor(diff / 1000) % 60;
+      const mins = Math.floor(diff / (1000 * 60)) % 60;
+      const hours = Math.floor(diff / (1000 * 3600)) % 24;
+      const days = Math.floor(diff / (1000 * 3600 * 24));
+
+      els.days.textContent = pad(days);
+      els.hours.textContent = pad(hours);
+      els.mins.textContent = pad(mins);
+      els.secs.textContent = pad(secs);
+      els.status.textContent = 'Countdown to release';
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
