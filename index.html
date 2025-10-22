@@ -55,4 +55,174 @@
 
       <div class="count" id="countdown" aria-live="polite" aria-atomic="true" role="status">
         <div class="unit"><div class="n" id="days">00</div><div class="label">Days</div></div>
-        <div class="unit"><div class="n" id="hours">
+        <div class="unit"><div class="n" id="hours">00</div><div class="label">Hours</div></div>
+        <div class="unit"><div class="n" id="mins">00</div><div class="label">Minutes</div></div>
+        <div class="unit"><div class="n" id="secs">00</div><div class="label">Seconds</div></div>
+      </div>
+
+      <div class="cta">
+        <a id="presave-btn" class="btn" href="https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist" target="_blank" rel="noopener">Pre‑save on HyperFollow</a>
+      </div>
+
+      <div class="description" id="album-description">
+        The album "Romantic Opportunist" is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. On "She Hit The Track" you get a hook that sticks; on "Let Me Take This Pain Away" I offer a heartfelt message to a girl who carried her own sorrow while making sure others would be okay. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
+      </div>
+
+      <div class="teaser" id="teaser">
+        Preview and updates will appear here. Check back on release day to stream Romantic Opportunist.
+      </div>
+
+      <div id="audio-wrap">
+        <audio id="preview-audio" controls preload="metadata">
+          <source id="audio-src-m4a" type="audio/mp4">
+          <source id="audio-src-mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <footer id="status">Countdown to release</footer>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      title: 'Romantic Opportunist',
+      // UTC equivalent for 2026-01-16 00:00 America/New_York (EST is UTC-5 on this date)
+      releaseIso: '2026-01-16T05:00:00Z',
+      presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
+      streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
+      artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
+      // use the reachable MP3 you confirmed on Pages
+      audioFilename: 'audio/She_Hit_The_Track.mp3',
+      postReleaseBehavior: 'swap-button' // swap-button or redirect
+    };
+
+    // DOM wiring
+    document.getElementById('title').textContent = CONFIG.title;
+    document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
+    document.getElementById('presave-btn').href = CONFIG.presaveUrl;
+
+    // Show release in UTC and America/New_York
+    const release = new Date(CONFIG.releaseIso);
+    document.getElementById('release-utc').textContent = CONFIG.releaseIso;
+    try {
+      const nyString = release.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+      document.getElementById('release-local').textContent = nyString + ' (America/New_York)';
+    } catch (e) {
+      document.getElementById('release-local').textContent = CONFIG.releaseIso;
+    }
+
+    // Audio source wiring: handle both .m4a and .mp3 inputs robustly
+    (function setAudioSources() {
+      const m4aEl = document.getElementById('audio-src-m4a');
+      const mp3El = document.getElementById('audio-src-mp3');
+      const audioEl = document.getElementById('preview-audio');
+
+      // If audioFilename is a full URL, use it directly; otherwise encode path segments
+      let src;
+      try {
+        const isFullUrl = /^(https?:)?\/\//i.test(CONFIG.audioFilename);
+        if (isFullUrl) {
+          src = CONFIG.audioFilename;
+        } else {
+          const parts = CONFIG.audioFilename.split('/').map(encodeURIComponent);
+          src = parts.join('/');
+          // prepend relative path root if GitHub Pages requires it; keep relative for Pages
+        }
+      } catch (err) {
+        src = CONFIG.audioFilename;
+      }
+
+      // assign appropriate sources
+      if (m4aEl) {
+        if (/\.m4a$/i.test(src)) {
+          m4aEl.src = src;
+        } else {
+          m4aEl.removeAttribute('src');
+        }
+      }
+
+      if (mp3El) {
+        if (/\.mp3$/i.test(src)) {
+          mp3El.src = src;
+        } else if (/\.m4a$/i.test(src)) {
+          mp3El.src = src.replace(/\.m4a$/i, '.mp3');
+        } else {
+          // fallback: try same path with .mp3 extension
+          mp3El.src = src.replace(/\.\w+$/, '.mp3');
+        }
+      }
+
+      audioEl.load();
+    })();
+
+    // Countdown logic (uses UTC release time so math is correct for all visitors)
+    const releaseTime = release.getTime();
+    const els = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      mins: document.getElementById('mins'),
+      secs: document.getElementById('secs'),
+      status: document.getElementById('status'),
+      presave: document.getElementById('presave-btn'),
+      teaser: document.getElementById('teaser')
+    };
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function update(){
+      const now = Date.now();
+      const diff = releaseTime - now;
+
+      if (diff <= 0) {
+        els.days.textContent = '00';
+        els.hours.textContent = '00';
+        els.mins.textContent = '00';
+        els.secs.textContent = '00';
+        els.status.textContent = 'Released — stream now';
+
+        if (CONFIG.postReleaseBehavior === 'redirect') {
+          window.location.href = CONFIG.streamingUrl;
+          return;
+        }
+
+        if (CONFIG.postReleaseBehavior === 'swap-button') {
+          els.presave.textContent = 'Stream on Apple Music';
+          els.presave.href = CONFIG.streamingUrl;
+          els.presave.setAttribute('aria-label', 'Stream on Apple Music');
+          els.teaser.innerHTML = 'Released — <a href="' + CONFIG.streamingUrl + '" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">Listen on Apple Music</a>';
+        }
+        return;
+      }
+
+      const secs = Math.floor(diff / 1000) % 60;
+      const mins = Math.floor(diff / (1000 * 60)) % 60;
+      const hours = Math.floor(diff / (1000 * 3600)) % 24;
+      const days = Math.floor(diff / (1000 * 3600 * 24));
+
+      els.days.textContent = pad(days);
+      els.hours.textContent = pad(hours);
+      els.mins.textContent = pad(mins);
+      els.secs.textContent = pad(secs);
+      els.status.textContent = 'Countdown to release';
+    }
+
+    update();
+    setInterval(update, 1000);
+
+    // Debug helpers (uncomment if needed)
+    // console.log('CONFIG.audioFilename:', CONFIG.audioFilename);
+    // console.log('audio src (m4a):', document.getElementById('audio-src-m4a').src);
+    // console.log('audio src (mp3):', document.getElementById('audio-src-mp3').src);
+    // console.log('audio readyState:', document.getElementById('preview-audio').readyState);
+  </script>
+</body>
+</html>
