@@ -87,22 +87,18 @@
   <script>
     const CONFIG = {
       title: 'Romantic Opportunist',
-      // UTC equivalent for 2026-01-16 00:00 America/New_York (EST is UTC-5 on this date)
       releaseIso: '2026-01-16T05:00:00Z',
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
-      // Google Drive direct-download URL for the file you provided
       audioFilename: 'https://docs.google.com/uc?export=download&id=133ILEHjsrZtAB7K6mIOigoS6T5Mhd1g9',
-      postReleaseBehavior: 'swap-button' // swap-button or redirect
+      postReleaseBehavior: 'swap-button'
     };
 
-    // DOM wiring
     document.getElementById('title').textContent = CONFIG.title;
     document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
     document.getElementById('presave-btn').href = CONFIG.presaveUrl;
 
-    // Show release in UTC and America/New_York
     const release = new Date(CONFIG.releaseIso);
     document.getElementById('release-utc').textContent = CONFIG.releaseIso;
     try {
@@ -120,7 +116,6 @@
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
     }
 
-    // Audio source wiring: handle repo-relative paths, full URLs, and Google Drive direct-download links
     (function setAudioSources() {
       const m4aEl = document.getElementById('audio-src-m4a');
       const mp3El = document.getElementById('audio-src-mp3');
@@ -128,15 +123,10 @@
 
       let src = CONFIG.audioFilename || '';
 
-      // If it's not an absolute URL, encode path segments for repo-relative paths
       if (!/^(https?:)?\/\//i.test(src)) {
-        try {
-          const parts = src.split('/').map(encodeURIComponent);
-          src = parts.join('/');
-        } catch (e) {}
+        try { src = src.split('/').map(encodeURIComponent).join('/'); } catch (e) {}
       }
 
-      // For Google Drive direct download URLs the extension may not be present; assign to mp3 source for broad compatibility
       const hasMp3Ext = /\.mp3$/i.test(src);
       const hasM4aExt = /\.m4a$/i.test(src);
 
@@ -145,19 +135,12 @@
       }
 
       if (mp3El) {
-        if (hasMp3Ext) {
-          mp3El.src = src;
-        } else if (hasM4aExt) {
-          mp3El.src = src.replace(/\.m4a$/i, '.mp3');
-        } else {
-          mp3El.src = src;
-        }
+        if (hasMp3Ext) { mp3El.src = src; } else if (hasM4aExt) { mp3El.src = src.replace(/\.m4a$/i, '.mp3'); } else { mp3El.src = src; }
       }
 
       audioEl.load();
     })();
 
-    // Countdown logic (uses UTC release time so math is correct for all visitors)
     const releaseTime = release.getTime();
     const els = {
       days: document.getElementById('days'),
@@ -210,12 +193,6 @@
 
     update();
     setInterval(update, 1000);
-
-    // Debug helpers (uncomment if needed)
-    // console.log('CONFIG.audioFilename:', CONFIG.audioFilename);
-    // console.log('audio src (m4a):', document.getElementById('audio-src-m4a').src);
-    // console.log('audio src (mp3):', document.getElementById('audio-src-mp3').src);
-    // console.log('audio readyState:', document.getElementById('preview-audio').readyState);
   </script>
 </body>
 </html>
