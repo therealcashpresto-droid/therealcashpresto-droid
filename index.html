@@ -59,10 +59,11 @@
         Preview and updates will appear here. Check back on release day to stream Romantic Opportunist.
       </div>
 
-      <!-- Audio player: upload your WAV to /audio/Romantic_Opportunist_preview.wav -->
+      <!-- Audio player: referenced via JS to safely encode spaces in filenames -->
       <div id="audio-wrap">
         <audio id="preview-audio" controls preload="metadata">
-          <source id="audio-src" src="audio/Romantic_Opportunist_preview.wav" type="audio/wav">
+          <source id="audio-src-m4a" type="audio/mp4">
+          <source id="audio-src-mp3" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>
       </div>
@@ -79,7 +80,8 @@
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
-      audioPath: 'audio/Romantic_Opportunist_preview.wav',
+      // Filename you uploaded (contains spaces). If you rename the file, update this value.
+      audioFilename: 'audio/She Hit The Track.m4a',
       postReleaseBehavior: 'swap-button' // swap-button or redirect
     };
 
@@ -87,6 +89,24 @@
     document.getElementById('title').textContent = CONFIG.title;
     document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
     document.getElementById('presave-btn').href = CONFIG.presaveUrl;
+
+    // Album description already in HTML; no change needed here
+
+    // Audio source wiring: encode spaces so browser requests the correct raw GitHub URL
+    (function setAudioSources() {
+      const m4aEl = document.getElementById('audio-src-m4a');
+      const mp3El = document.getElementById('audio-src-mp3');
+      // Encode only path segments, leave slashes intact
+      const parts = CONFIG.audioFilename.split('/').map(encodeURIComponent);
+      const encodedPath = parts.join('/');
+      // Set M4A source
+      if (m4aEl) m4aEl.src = encodedPath;
+      // Set MP3 fallback (same base name with .mp3)
+      if (mp3El) mp3El.src = encodedPath.replace(/\.m4a$/i, '.mp3');
+      // Force reload so player picks up new sources
+      const audioEl = document.getElementById('preview-audio');
+      audioEl.load();
+    })();
 
     // Show release in local timezone (America/New_York) and UTC
     const release = new Date(CONFIG.releaseIso);
@@ -98,7 +118,7 @@
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
     }
 
-    // Countdown logic (uses UTC release time so it's accurate for everyone)
+    // Countdown logic (uses UTC release time)
     const releaseTime = release.getTime();
     const els = {
       days: document.getElementById('days'),
@@ -148,11 +168,6 @@
       els.secs.textContent = pad(secs);
       els.status.textContent = 'Countdown to release';
     }
-
-    // Audio source wiring (if file exists at audioPath)
-    document.getElementById('audio-src').src = CONFIG.audioPath;
-    const audioEl = document.getElementById('preview-audio');
-    audioEl.load();
 
     update();
     setInterval(update, 1000);
