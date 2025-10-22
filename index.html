@@ -50,8 +50,8 @@
         <div class="art" id="artwork" style="background-image:url('https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp')" aria-hidden="true"></div>
         <div>
           <h1 id="title">Romantic Opportunist</h1>
-          <div class="meta">Release (America/New_York): <strong id="release-local">2026-01-16T07:00:00</strong></div>
-          <div class="meta">Release (UTC): <strong id="release-utc">2026-01-16T12:00:00Z</strong></div>
+          <div class="meta">Release (America/New_York): <strong id="release-local">2026-01-16T12:00:00 AM</strong></div>
+          <div class="meta">Release (UTC): <strong id="release-utc">2026-01-16T05:00:00Z</strong></div>
         </div>
       </header>
 
@@ -67,7 +67,7 @@
       </div>
 
       <div class="description" id="album-description">
-        Romantic Opportunist is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. On "She Hit The Track" you get a hook that sticks; on "Let Me Take This Pain Away" I offer a heartfelt message to a girl who carried her own sorrow while making sure others would be okay. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
+        Romantic Opportunist is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. On "She Hit The Track" you get a hook that sticks; on "Let Me Take This Pain Away" I offer a heartfelt message to the girl who carried her own sorrow while making sure I’d be okay. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
       </div>
 
       <div class="teaser" id="teaser">
@@ -91,8 +91,8 @@
     // CONFIG (your values)
     const CONFIG = {
       title: 'Romantic Opportunist',
-      // UTC equivalent for 2026-01-16 07:00:00 America/New_York (EST is UTC-5 on this date)
-      releaseIso: '2026-01-16T12:00:00Z',
+      // UTC equivalent for 2026-01-16 00:00 America/New_York (EST is UTC-5 on that date)
+      releaseIso: '2026-01-16T05:00:00Z',
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
@@ -110,7 +110,15 @@
     const release = new Date(CONFIG.releaseIso);
     document.getElementById('release-utc').textContent = CONFIG.releaseIso;
     try {
-      const nyString = release.toLocaleString('en-US', { timeZone: 'America/New_York', year:'numeric', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
+      const nyString = release.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
       document.getElementById('release-local').textContent = nyString + ' (America/New_York)';
     } catch (e) {
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
@@ -187,7 +195,7 @@
     // console.log('browser local time now:', new Date().toString());
     // console.log('browser timeZone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
     // console.log('release in browser local:', new Date(CONFIG.releaseIso).toString());
-    // console.log('release in America/New_York:', new Date(CONFIG.releaseIso).toLocaleString('en-US', {timeZone:'America/New_York'}));
+    // console.log('release in America/New_York:', new Date(CONFIG.releaseIso).toLocaleString('en-US', {timeZone:'America/New_York', hour12:true}));
   </script>
 </body>
 </html>
