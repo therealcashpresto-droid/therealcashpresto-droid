@@ -6,6 +6,8 @@
   <title>Romantic Opportunist — Countdown</title>
   <meta name="description" content="Countdown to 'Romantic Opportunist' — pre-save, preview, and album description." />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="shortcut icon" href="/favicon.ico">
   <style>
     :root{--bg:#071018;--card:rgba(255,255,255,0.03);--accent:#1db954;--muted:#9aa0a6}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;background:linear-gradient(180deg,#04121a 0%,#071018 100%)}
@@ -74,7 +76,6 @@
       </div>
 
       <div id="audio-wrap" class="download-wrap">
-        <!-- Download button replaces the audio player -->
         <a id="download-btn" class="download-btn" href="#" download>
           Download Track 7 "She Hit The Track"
         </a>
@@ -87,22 +88,18 @@
   <script>
     const CONFIG = {
       title: 'Romantic Opportunist',
-      // UTC equivalent for 2026-01-16 00:00 America/New_York (EST is UTC-5 on this date)
       releaseIso: '2026-01-16T05:00:00Z',
       presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
       streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
       artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
-      // Google Drive direct-download URL (you provided this file)
       downloadUrl: 'https://docs.google.com/uc?export=download&id=133ILEHjsrZtAB7K6mIOigoS6T5Mhd1g9',
       postReleaseBehavior: 'swap-button'
     };
 
-    // DOM wiring
     document.getElementById('title').textContent = CONFIG.title;
     document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
     document.getElementById('presave-btn').href = CONFIG.presaveUrl;
 
-    // Show release in UTC and America/New_York
     const release = new Date(CONFIG.releaseIso);
     document.getElementById('release-utc').textContent = CONFIG.releaseIso;
     try {
@@ -120,28 +117,15 @@
       document.getElementById('release-local').textContent = CONFIG.releaseIso;
     }
 
-    // Wire the download button
     (function setDownloadButton() {
       const btn = document.getElementById('download-btn');
       const url = CONFIG.downloadUrl || '#';
-
-      // Use the provided URL for download; if browser supports download attribute with cross-origin it will attempt to save.
       btn.href = url;
-
-      // Suggest a filename for the saved file
       btn.setAttribute('download', '07 - She Hit The Track.mp3');
-
-      // Accessibility
       btn.setAttribute('aria-label', 'Download Track 7 She Hit The Track');
-
-      // If the download URL is on a different origin and the browser blocks the download attribute,
-      // clicking will still open the URL in a new tab where the user can use the browser's save controls.
-      btn.addEventListener('click', function (e) {
-        // No preventDefault so default behavior proceeds; keep this listener to allow analytics or logging later if desired.
-      });
+      btn.addEventListener('click', function () {});
     })();
 
-    // Countdown logic
     const releaseTime = release.getTime();
     const els = {
       days: document.getElementById('days'),
