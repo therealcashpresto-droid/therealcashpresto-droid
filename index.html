@@ -1,114 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>CASH PRESTO | The Symbol of Ambition</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CASH PRESTO, The Symbol of Ambition. Official artist website, music, story, and contact." />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Romantic Opportunist — Countdown</title>
+  <meta name="description" content="Countdown to 'Romantic Opportunist' — pre-save, preview, and album description." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2">
+  <link rel="shortcut icon" href="/favicon.ico?v=2">
+  <style>
+    :root{--bg:#071018;--card:rgba(255,255,255,0.03);--accent:#1db954;--muted:#9aa0a6}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;background:linear-gradient(180deg,#04121a 0%,#071018 100%)}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:100%;max-width:920px;background:var(--card);padding:28px;border-radius:12px;box-shadow:0 12px 40px rgba(2,6,23,0.6)}
+    header{display:flex;gap:18px;align-items:center}
+    .art{width:96px;height:96px;border-radius:8px;flex:0 0 96px;background-size:cover;background-position:center}
+    h1{margin:0;font-size:24px}
+    .meta{color:var(--muted);font-size:14px;margin-top:6px}
+    .count{display:flex;gap:10px;margin-top:18px;font-weight:700;flex-wrap:wrap}
+    .unit{background:rgba(255,255,255,0.04);padding:14px;border-radius:8px;min-width:74px;text-align:center}
+    .unit .n{font-size:20px;letter-spacing:0.6px}
+    .unit .label{font-size:12px;color:var(--muted);margin-top:6px}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{background:var(--accent);color:#001;border-radius:10px;padding:12px 16px;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:10px}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px 14px;border-radius:10px;color:var(--muted);text-decoration:none}
+    .teaser{margin-top:14px;color:var(--muted);font-size:14px;line-height:1.4}
+    .description{margin-top:16px;color:#fff;background:rgba(0,0,0,0.04);padding:18px;border-radius:8px;white-space:pre-wrap;
+      font-family:'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size:16px;
+      line-height:1.65;
+      letter-spacing:0.2px;
+      color:#f7f7f7;
+    }
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .download-wrap{margin-top:12px}
+    .download-btn{background:var(--accent);color:#001;border-radius:10px;padding:12px 16px;text-decoration:none;font-weight:700;display:inline-block}
+    @media (max-width:520px){
+      header{flex-direction:row;align-items:center}
+      .art{width:72px;height:72px}
+      .unit{min-width:60px;padding:10px}
+      .unit .n{font-size:16px}
+      .description{font-size:15px;padding:14px}
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="logo">
-      <a href="index.html">CASH PRESTO</a>
-    </div>
-    <nav class="main-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="music.html">Music</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <!-- Hero section with background image -->
-    <section class="hero" id="home">
-      <div class="hero-overlay"></div>
-      <!-- Replace the src with your actual image path in the repo -->
-      <img src="hero.jpg" alt="Cash Presto portrait" class="hero-image" />
-      <div class="hero-content">
-        <h1>CASH PRESTO</h1>
-        <p class="hero-tagline">The Symbol of Ambition</p>
-        <div class="hero-buttons">
-          <a href="music.html" class="btn primary-btn">Listen Now</a>
-          <a href="about.html" class="btn secondary-btn">Learn More</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Featured section -->
-    <section class="section">
-      <div class="section-inner">
-        <h2>Featured Release</h2>
-        <p class="section-subtitle">
-          Dive into the world of Romantic Opportunist — ambition, tension, and cinematic energy.
-        </p>
-
-        <!-- Replace this with your actual embed (Spotify, YouTube, etc.) -->
-        <div class="embed-wrapper">
-          <!-- Example YouTube embed -->
-          <iframe
-            src="https://www.youtube.com/embed/"
-            title="CASH PRESTO - Romantic Opportunist"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
-
-        <div class="platform-links">
-          <a href="#" class="text-link">Spotify</a>
-          <span>•</span>
-          <a href="#" class="text-link">Apple Music</a>
-          <span>•</span>
-          <a href="#" class="text-link">YouTube</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Short about teaser -->
-    <section class="section section-alt">
-      <div class="section-inner two-column">
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Release countdown">
+      <header>
+        <div class="art" id="artwork" style="background-image:url('https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp')" aria-hidden="true"></div>
         <div>
-          <h2>Ambition with a pulse</h2>
-          <p>
-            Cash Presto makes music for the ones who refuse to stay small — blending raw emotion,
-            cinematic soundscapes, and a relentless drive to evolve.
-          </p>
-          <p>
-            Every release is a chapter in a larger story about risk, self-belief, and chasing more
-            than what you were handed.
-          </p>
-          <a href="about.html" class="text-link">Read the full story →</a>
+          <h1 id="title">Romantic Opportunist</h1>
+          <div class="meta">Release (America/New_York): <strong id="release-local">2026-01-16T12:00:00 AM</strong></div>
+          <div class="meta">Release (UTC): <strong id="release-utc">2026-01-16T05:00:00Z</strong></div>
         </div>
-        <div class="info-card">
-          <h3>Current focus</h3>
-          <ul>
-            <li>Building the Romantic Opportunist era</li>
-            <li>Sharpening the live and digital presence</li>
-            <li>Expanding the sound, not just the catalog</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
+      </header>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>© <span id="year"></span> CASH PRESTO. All rights reserved.</p>
-      <div class="footer-social">
-        <!-- Replace # with your real links -->
-        <a href="#" aria-label="Spotify">Spotify</a>
-        <a href="#" aria-label="YouTube">YouTube</a>
-        <a href="#" aria-label="Instagram">Instagram</a>
-        <a href="#" aria-label="TikTok">TikTok</a>
+      <div class="count" id="countdown" aria-live="polite" aria-atomic="true" role="status">
+        <div class="unit"><div class="n" id="days">00</div><div class="label">Days</div></div>
+        <div class="unit"><div class="n" id="hours">00</div><div class="label">Hours</div></div>
+        <div class="unit"><div class="n" id="mins">00</div><div class="label">Minutes</div></div>
+        <div class="unit"><div class="n" id="secs">00</div><div class="label">Seconds</div></div>
       </div>
+
+      <div class="cta">
+        <a id="presave-btn" class="btn" href="https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist" target="_blank" rel="noopener">Pre‑save on HyperFollow</a>
+      </div>
+
+      <div class="description" id="album-description">
+        The album "Romantic Opportunist" is a candid look into a journey of heartbreak and the lessons that follow. Rooted in Hip Hop, Pop, and deep R&B textures, the project moves between tight grooves and late-night confessions. This collection is for anyone who’s survived love, still carries the ache, and keeps moving forward with a little more truth and a little less pretense.
+      </div>
+
+      <div class="teaser" id="teaser">
+        Preview and updates will appear here. Check back on release day to stream Romantic Opportunist.
+      </div>
+
+      <div id="audio-wrap" class="download-wrap">
+        <a id="download-btn" class="download-btn" href="#" download>
+          Download Track 7 "She Hit The Track"
+        </a>
+      </div>
+
+      <footer id="status">Countdown to release</footer>
     </div>
-  </footer>
+  </div>
 
   <script>
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const CONFIG = {
+      title: 'Romantic Opportunist',
+      releaseIso: '2026-01-16T05:00:00Z',
+      presaveUrl: 'https://distrokid.com/hyperfollow/cashpresto/romantic-opportunist',
+      streamingUrl: 'https://music.apple.com/us/album/romantic-opportunist/1847561808',
+      artworkUrl: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e4/ce/00/e4ce006d-1c7d-159a-ef21-3458a76b3937/artwork.jpg/296x296bb.webp',
+      downloadUrl: 'https://docs.google.com/uc?export=download&id=133ILEHjsrZtAB7K6mIOigoS6T5Mhd1g9',
+      postReleaseBehavior: 'swap-button'
+    };
+
+    document.getElementById('title').textContent = CONFIG.title;
+    document.getElementById('artwork').style.backgroundImage = `url('${CONFIG.artworkUrl}')`;
+    document.getElementById('presave-btn').href = CONFIG.presaveUrl;
+
+    const release = new Date(CONFIG.releaseIso);
+    document.getElementById('release-utc').textContent = CONFIG.releaseIso;
+    try {
+      const nyString = release.toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+      document.getElementById('release-local').textContent = nyString + ' (America/New_York)';
+    } catch (e) {
+      document.getElementById('release-local').textContent = CONFIG.releaseIso;
+    }
+
+    (function setDownloadButton() {
+      const btn = document.getElementById('download-btn');
+      const url = CONFIG.downloadUrl || '#';
+      btn.href = url;
+      btn.setAttribute('download', '07 - She Hit The Track.mp3');
+      btn.setAttribute('aria-label', 'Download Track 7 She Hit The Track');
+      btn.addEventListener('click', function () {});
+    })();
+
+    const releaseTime = release.getTime();
+    const els = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      mins: document.getElementById('mins'),
+      secs: document.getElementById('secs'),
+      status: document.getElementById('status'),
+      presave: document.getElementById('presave-btn'),
+      teaser: document.getElementById('teaser'),
+      downloadWrap: document.getElementById('audio-wrap')
+    };
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+
+    function update(){
+      const now = Date.now();
+      const diff = releaseTime - now;
+
+      if (diff <= 0) {
+        els.days.textContent = '00';
+        els.hours.textContent = '00';
+        els.mins.textContent = '00';
+        els.secs.textContent = '00';
+        els.status.textContent = 'Released — stream now';
+
+        if (CONFIG.postReleaseBehavior === 'redirect') {
+          window.location.href = CONFIG.streamingUrl;
+          return;
+        }
+
+        if (CONFIG.postReleaseBehavior === 'swap-button') {
+          els.presave.textContent = 'Stream on Apple Music';
+          els.presave.href = CONFIG.streamingUrl;
+          els.presave.setAttribute('aria-label', 'Stream on Apple Music');
+          els.teaser.innerHTML = 'Released — <a href="' + CONFIG.streamingUrl + '" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">Listen on Apple Music</a>';
+        }
+        return;
+      }
+
+      const secs = Math.floor(diff / 1000) % 60;
+      const mins = Math.floor(diff / (1000 * 60)) % 60;
+      const hours = Math.floor(diff / (1000 * 3600)) % 24;
+      const days = Math.floor(diff / (1000 * 3600 * 24));
+
+      els.days.textContent = pad(days);
+      els.hours.textContent = pad(hours);
+      els.mins.textContent = pad(mins);
+      els.secs.textContent = pad(secs);
+      els.status.textContent = 'Countdown to release';
+    }
+
+    update();
+    setInterval(update, 1000);
   </script>
 </body>
 </html>
