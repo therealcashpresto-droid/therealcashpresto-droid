@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CASH PRESTO | Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Music by CASH PRESTO. Listen to Romantic Opportunist and more." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">
+      <a href="index.html">CASH PRESTO</a>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="music.html" class="active">Music</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="section-inner">
+        <h1>Music</h1>
+        <p class="section-subtitle">
+          Romantic Opportunist and beyond — a catalog driven by ambition, tension, and narrative.
+        </p>
+      </div>
+    </section>
+
+    <!-- Featured project -->
+    <section class="section">
+      <div class="section-inner two-column">
+        <div>
+          <h2>Romantic Opportunist</h2>
+          <p>
+            A body of work that lives in the space between desire and discipline — sharp edges,
+            big hooks, and a cinematic backbone.
+          </p>
+          <ul class="tracklist">
+            <li>Track 1 – Title</li>
+            <li>Track 2 – Title</li>
+            <li>Track 3 – Title</li>
+            <!-- Add real track names here -->
+          </ul>
+          <div class="platform-links">
+            <a href="#" class="text-link">Spotify</a>
+            <span>•</span>
+            <a href="#" class="text-link">Apple Music</a>
+            <span>•</span>
+            <a href="#" class="text-link">YouTube</a>
+          </div>
+        </div>
+
+        <div class="embed-wrapper">
+          <!-- Replace with your real album/playlist embed -->
+          <iframe
+            src="https://open.spotify.com/embed/album/"
+            title="Romantic Opportunist on Spotify"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Singles / other releases -->
+    <section class="section section-alt">
+      <div class="section-inner">
+        <h2>Singles & Highlights</h2>
+
+        <div class="release-grid">
+          <article class="release-card">
+            <h3>Single Title</h3>
+            <p>
+              A sharp snapshot of where the sound is headed next — focused, ambitious, and deliberate.
+            </p>
+            <div class="embed-wrapper small-embed">
+              <!-- Example single embed -->
+              <iframe
+                src="https://open.spotify.com/embed/track/"
+                title="Single on Spotify"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+              </iframe>
+            </div>
+            <div class="platform-links">
+              <a href="#" class="text-link">Listen →</a>
+            </div>
+          </article>
+
+          <article class="release-card">
+            <h3>Another Release</h3>
+            <p>
+              Another layer of the story — evolving production, sharper writing, the same relentless drive.
+            </p>
+            <div class="embed-wrapper small-embed">
+              <iframe
+                src="https://www.youtube.com/embed/"
+                title="Music Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="platform-links">
+              <a href="#" class="text-link">Watch →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© <span id="year"></span> CASH PRESTO. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#">Spotify</a>
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
